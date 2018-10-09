@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Ingestion</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="welcome_morning">Доброе утро!</string>
+    <string name="welcome_afternoon">Добрый день!</string>
+    <string name="welcome_evening">Добрый вечер!</string>
+    <string name="welcome_night">Доброй ночи!</string>
+    <string name="error">Возникла ошибка</string>
+    <string name="welcome_water">Не забудьте выпить воды.</string>
+    <string name="welcome_button_start">Начать</string>
+    <string name="welcome_weight">Введите свой вес:  </string>
+    <string name="welcome_monday">понедельник</string>
+    <string name="welcome_start_new_day">Новый день</string>
+    <string name="general_next_ingestion">Следующий приём пищи {0}</string>
+    <string name="general_at">в</string>
+    <string name="general_button_eat">Ем</string>
+    <string name="general_button_pass">Пропуск</string>
+    <string name="general_water">Выпить воды</string>
+    <string name="general_water_count">Cтаканов(250мл): {0}</string>
+    <string name="general_button_water_add">+</string>
+    <string name="general_button_water_remove">-</string>
+    <string name="general_this_week_weight">Вес на этой неделе: {0}</string>
+    <string name="general_stats">Статистика</string>
+    <string name="general_tomorrow">завтра</string>
+    <string name="general_breakfast">завтрак</string>
+    <string name="general_snack1">перекус 1</string>
+    <string name="general_lunch">обед</string>
+    <string name="general_snack2">перекус 2</string>
+    <string name="general_dinner">ужин</string>
+    <string name="general_now_ingestion">{0}</string>
+    <string name="general_bon_appetite">Приятного аппетита!</string>
+    <string name="stats_date">Дата: {0}</string>
+    <string name="stats_week_weight">Вес:\n{0}</string>
+    <string name="stats_breakfast">Завтрак {0}</string>
+    <string name="stats_snack1">Перекус 1 {0}</string>
+    <string name="stats_lunch">Обед {0}</string>
+    <string name="stats_snack2">Перекус 2 {0}</string>
+    <string name="stats_dinner">Ужин {0}</string>
+    <string name="stats_water">Выпито воды: {0}</string>
+    <string name="service_over_30_min">Через 30 мин.</string>
+    <string name="service_time_to">Пора есть</string>
+    <string name="service_passed">Пропущен</string>
+    <string name="service_foreground_notify">Следующий приём пищи в</string>
+    <string name="title_activity_main2">MainActivity2</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="in_progress">В разработке</string>
+</resources>
