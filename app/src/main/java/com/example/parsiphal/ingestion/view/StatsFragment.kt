@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.example.parsiphal.ingestion.R
 
+//TODO Отображение данных из DB
+//TODO Чтение из DB на основании типа питания
+
 class StatsFragment : MvpAppCompatFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.example.parsiphal.ingestion.R
 
+//TODO Выбор 3-х или 5-ти разового питания, сохранение в SharedPreferences
+
 class OptionsFragment : MvpAppCompatFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

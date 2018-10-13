@@ -13,6 +13,8 @@ import kotlinx.android.synthetic.main.fragment_start.welcome_textView as welcome
 import kotlinx.android.synthetic.main.fragment_start.weight_textView as weightTextView
 import kotlinx.android.synthetic.main.fragment_start.welcome_editText as welcomeEditText
 
+//TODO Обработка кнопки "Начать". Запись в DB. Транслирование в MainActivity(Room LiveData?)
+//TODO Проверка на новый день? Изменение проверки недели от нового дня.
 
 class StartFragment : MvpAppCompatFragment(), StartView {
 

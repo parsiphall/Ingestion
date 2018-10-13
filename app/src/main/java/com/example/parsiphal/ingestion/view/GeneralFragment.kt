@@ -9,6 +9,9 @@ import com.example.parsiphal.ingestion.R
 import com.example.parsiphal.ingestion.presenter.interfaces.GeneralView
 import kotlinx.android.synthetic.main.fragment_general.*
 
+//TODO Обработка приёма воды.
+//TODO Запись в DB. Транслирование в MainActivity(Room LiveData?)
+
 class GeneralFragment : MvpAppCompatFragment(), GeneralView {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
