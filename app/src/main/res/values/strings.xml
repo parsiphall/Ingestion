@@ -54,4 +54,5 @@
     <string name="options">Настройки</string>
     <string name="new_day">Новый день</string>
     <string name="general_ing">Питание</string>
+    <string name="stats">Статистика</string>
 </resources>
