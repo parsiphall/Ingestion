@@ -8,6 +8,10 @@ import java.util.*
 
 abstract class BasePresenter<T, V : BaseView> : MvpPresenter<V>() {
 
+    fun veryFirstLaunch() {
+
+    }
+
     fun getDate(): String {
         return SimpleDateFormat("yyyy.MM.dd", Locale.ENGLISH).format(Date())
     }
@@ -16,7 +20,5 @@ abstract class BasePresenter<T, V : BaseView> : MvpPresenter<V>() {
         return true
     }
 
-    fun isNewWeek(): Boolean {
-        return (SimpleDateFormat("EEEE", Locale.ENGLISH).format(Date())) == R.string.welcome_monday.toString()
-    }
+
 }
