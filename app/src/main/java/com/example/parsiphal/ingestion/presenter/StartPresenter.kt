@@ -21,9 +21,9 @@ class StartPresenter : MvpPresenter<StartView>() {
     }
 
     private fun setWelcomeText() {
-        val sdfHour = SimpleDateFormat("H")
-        sdfHour.timeZone = TimeZone.getDefault()
-        val hour = Integer.parseInt(sdfHour.format(Date()))
+        val time = SimpleDateFormat("H")
+        time.timeZone = TimeZone.getDefault()
+        val hour = Integer.parseInt(time.format(Date()))
         when (hour) {
             in 5..9 -> viewState.setWelcome(1)
             in 10..16 -> viewState.setWelcome(2)
