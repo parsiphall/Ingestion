@@ -41,18 +41,10 @@ class MainActivity : MvpAppCompatActivity(), NavigationView.OnNavigationItemSele
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_new_day -> {
-                fragmentPlace(StartFragment())
-            }
-            R.id.nav_general -> {
-                fragmentPlace(GeneralFragment())
-            }
-            R.id.nav_stats -> {
-                fragmentPlace(StatsFragment())
-            }
-            R.id.nav_options -> {
-                fragmentPlace(OptionsFragment())
-            }
+            R.id.nav_new_day -> fragmentPlace(StartFragment())
+            R.id.nav_general -> fragmentPlace(GeneralFragment())
+            R.id.nav_stats -> fragmentPlace(StatsFragment())
+            R.id.nav_options -> fragmentPlace(OptionsFragment())
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
