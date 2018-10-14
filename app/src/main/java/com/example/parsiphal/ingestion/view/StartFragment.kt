@@ -36,7 +36,7 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     }
 
     override fun isNewWeek(day: String) {
-        if (!day.equals(R.string.welcome_monday)) {
+        if (day != R.string.welcome_monday.toString()) {
             weightTextView.visibility = View.GONE
             welcomeEditText.visibility = View.GONE
         }
