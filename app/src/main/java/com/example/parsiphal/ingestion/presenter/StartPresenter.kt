@@ -12,18 +12,19 @@ class StartPresenter : MvpPresenter<StartView>() {
     override fun attachView(view: StartView?) {
         super.attachView(view)
         setWelcomeText()
-        isNewWeek()
+        isNewDay()
     }
 
-    private fun isNewWeek() {
+    private fun isNewDay() {
         val day = SimpleDateFormat("EEEE").format(Date())
-        viewState.isNewWeek(day)
+        val date = SimpleDateFormat("yyyy.MM.dd").format(Date())
+        viewState.isNewDay(day, date)
     }
 
     private fun setWelcomeText() {
-        val time = SimpleDateFormat("H")
-        time.timeZone = TimeZone.getDefault()
-        val hour = Integer.parseInt(time.format(Date()))
+        val dayOfWeek = SimpleDateFormat("H")
+        dayOfWeek.timeZone = TimeZone.getDefault()
+        val hour = Integer.parseInt(dayOfWeek.format(Date()))
         viewState.setWelcome(when (hour) {
             in 5..9 -> 1
             in 10..16 -> 2

@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
     tools:context=".view.StartFragment">
 
     <LinearLayout
@@ -54,19 +58,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
+        <Button
+            android:id="@+id/start_button"
+            style="@style/buttonStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="60dp"
+            android:text="@string/welcome_button_start"
+            android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/start_button"
-                style="@style/buttonStyle"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="2dp"
-                android:layout_weight="1"
-                android:text="@string/welcome_button_start"
-                android:textSize="20sp" />
-        </LinearLayout>
     </LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
