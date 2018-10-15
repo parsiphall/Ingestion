@@ -40,6 +40,18 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        startButton.setOnClickListener {
+            YoYo.with(Techniques.Landing)
+                    .duration(100)
+                    .repeat(1)
+                    .playOn(startButton)
+            callBackActivity.setWeight(MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight))
+            callBackActivity.fragmentPlace(GeneralFragment(), 1)
+        }
+    }
+
     override fun setWelcome(welcome: Int) {
         welcomeText.setText(when (welcome) {
             1 -> R.string.welcome_morning
@@ -70,14 +82,6 @@ class StartFragment : MvpAppCompatFragment(), StartView {
             }
         } else {
             weightGone()
-        }
-        startButton.setOnClickListener {
-            YoYo.with(Techniques.Landing)
-                    .duration(100)
-                    .repeat(1)
-                    .playOn(startButton)
-            callBackActivity.setWeight(MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight))
-            callBackActivity.fragmentPlace(GeneralFragment(), 1)
         }
     }
 

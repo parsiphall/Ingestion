@@ -16,8 +16,10 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.nav_this_week_weight as thisWeekWeight
 import kotlinx.android.synthetic.main.nav_header_main.nav_water_count as waterCount
-
 import java.text.MessageFormat
+
+//TODO Вода в initGUI
+
 
 class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigationItemSelectedListener {
 
