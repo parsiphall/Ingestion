@@ -1,5 +1,6 @@
 package com.example.parsiphal.ingestion.view
 
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.parsiphal.ingestion.R
 import com.example.parsiphal.ingestion.presenter.StartPresenter
+import com.example.parsiphal.ingestion.presenter.interfaces.MainView
 import com.example.parsiphal.ingestion.presenter.interfaces.StartView
+import java.text.MessageFormat
 import kotlinx.android.synthetic.main.fragment_start.start_button as startButton
 import kotlinx.android.synthetic.main.fragment_start.welcome_textView as welcomeText
 import kotlinx.android.synthetic.main.fragment_start.weight_textView as weightTextView
@@ -23,6 +28,12 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
     @InjectPresenter
     lateinit var startPresenter: StartPresenter
+    lateinit var callBackActivity: MainView
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        callBackActivity = context as MainView
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -53,11 +64,20 @@ class StartFragment : MvpAppCompatFragment(), StartView {
 
                     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                         startButton.isEnabled = true
+                        prefs.thisWeekWeight = welcomeEditText.text.toString()
                     }
                 })
             }
         } else {
             weightGone()
+        }
+        startButton.setOnClickListener {
+            YoYo.with(Techniques.Landing)
+                    .duration(100)
+                    .repeat(1)
+                    .playOn(startButton)
+            callBackActivity.setWeight(MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight))
+            callBackActivity.fragmentPlace(GeneralFragment(), 1)
         }
     }
 

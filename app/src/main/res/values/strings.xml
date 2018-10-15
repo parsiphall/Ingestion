@@ -57,4 +57,5 @@
     <string name="stats">Статистика</string>
     <string name="in_progress_options">Опции в разработке</string>
     <string name="in_progress_stats">Статистика в разработке</string>
+    <string name="no_data">нет данных</string>
 </resources>
