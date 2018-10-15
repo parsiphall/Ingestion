@@ -14,7 +14,7 @@
     <string name="welcome_water">Не забудьте выпить воды.</string>
     <string name="welcome_button_start">Начать</string>
     <string name="welcome_weight">Введите свой вес:  </string>
-    <string name="welcome_monday">monday</string>
+    <string name="welcome_monday">понедельник</string>
     <string name="welcome_start_new_day">Новый день</string>
     <string name="general_next_ingestion">Следующий приём пищи {0}</string>
     <string name="general_at">в</string>

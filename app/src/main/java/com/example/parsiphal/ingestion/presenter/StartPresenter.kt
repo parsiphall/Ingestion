@@ -16,7 +16,7 @@ class StartPresenter : MvpPresenter<StartView>() {
     }
 
     private fun isNewWeek() {
-        val day = SimpleDateFormat("EEEE", Locale.ENGLISH).format(Date())
+        val day = SimpleDateFormat("EEEE").format(Date())
         viewState.isNewWeek(day)
     }
 
