@@ -27,6 +27,7 @@ android {
 buildscript {
     ext.android_support_version = "28.0.0"
     ext.moxy_version = "1.5.5"
+    ext.room_version = "1.1.1"
 }
 
 dependencies {
@@ -39,7 +40,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Moxy
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     implementation "com.arello-mobile:moxy:$moxy_version"
     implementation "com.arello-mobile:moxy-app-compat:$moxy_version"
     kapt "com.arello-mobile:moxy-compiler:$moxy_version"
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // Room
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    kapt "android.arch.persistence.room:compiler:$room_version"
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    // animation
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 }

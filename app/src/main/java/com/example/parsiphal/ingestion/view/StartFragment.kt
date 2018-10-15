@@ -1,101 +1,92 @@
 package com.example.parsiphal.ingestion.view
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.daimajia.androidanimations.library.Techniques
+import com.daimajia.androidanimations.library.YoYo
 import com.example.parsiphal.ingestion.R
+import com.example.parsiphal.ingestion.presenter.StartPresenter
+import com.example.parsiphal.ingestion.presenter.interfaces.MainView
+import com.example.parsiphal.ingestion.presenter.interfaces.StartView
+import java.text.MessageFormat
+import kotlinx.android.synthetic.main.fragment_start.start_button as startButton
+import kotlinx.android.synthetic.main.fragment_start.welcome_textView as welcomeText
+import kotlinx.android.synthetic.main.fragment_start.weight_textView as weightTextView
+import kotlinx.android.synthetic.main.fragment_start.welcome_editText as welcomeEditText
 
+//TODO Обработка кнопки "Начать". Запись в DB. Транслирование в MainActivity(Room LiveData?)
+//TODO Проверка на новый день? Изменение проверки недели от нового дня.
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class StartFragment : MvpAppCompatFragment(), StartView {
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [StartFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [StartFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
-class StartFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
+    @InjectPresenter
+    lateinit var startPresenter: StartPresenter
+    lateinit var callBackActivity: MainView
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        callBackActivity = context as MainView
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_start, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        startButton.setOnClickListener {
+            YoYo.with(Techniques.Landing)
+                    .duration(100)
+                    .repeat(1)
+                    .playOn(startButton)
+            callBackActivity.setWeight(MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight))
+            callBackActivity.fragmentPlace(GeneralFragment(), 1)
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+    override fun setWelcome(welcome: Int) {
+        welcomeText.setText(when (welcome) {
+            1 -> R.string.welcome_morning
+            2 -> R.string.welcome_afternoon
+            3 -> R.string.welcome_evening
+            4 -> R.string.welcome_night
+            else -> R.string.error
+        })
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
+    override fun isNewDay(day: String, date: String) {
+        if (prefs.lastUseDay != date) {
+            prefs.lastUseDay = date
+            if (day != resources.getString(R.string.welcome_monday)) {
+                weightGone()
+            } else {
+                startButton.isEnabled = false
+                welcomeEditText.addTextChangedListener(object : TextWatcher {
+                    override fun afterTextChanged(s: Editable?) {}
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment StartFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                StartFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
+                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                        startButton.isEnabled = true
+                        prefs.thisWeekWeight = welcomeEditText.text.toString()
                     }
-                }
+                })
+            }
+        } else {
+            weightGone()
+        }
+    }
+
+    private fun weightGone() {
+        weightTextView.visibility = View.GONE
+        welcomeEditText.visibility = View.GONE
     }
 }

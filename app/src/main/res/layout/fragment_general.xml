@@ -23,13 +23,6 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/general_this_week_weight_textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="4dp"
-                tools:text="@string/general_this_week_weight" />
-
-            <TextView
                 android:id="@+id/general_next_ingestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -127,15 +120,6 @@
                         android:text="@string/general_button_water_add" />
                 </LinearLayout>
             </LinearLayout>
-
-            <Button
-                android:id="@+id/general_stats"
-                style="@style/buttonStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/general_drink_linear_layout"
-                android:layout_marginTop="2dp"
-                android:text="@string/general_stats" />
         </RelativeLayout>
 
 
