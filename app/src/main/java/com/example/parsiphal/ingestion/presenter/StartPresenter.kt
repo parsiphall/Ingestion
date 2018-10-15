@@ -24,11 +24,11 @@ class StartPresenter : MvpPresenter<StartView>() {
         val time = SimpleDateFormat("H")
         time.timeZone = TimeZone.getDefault()
         val hour = Integer.parseInt(time.format(Date()))
-        when (hour) {
-            in 5..9 -> viewState.setWelcome(1)
-            in 10..16 -> viewState.setWelcome(2)
-            in 17..22 -> viewState.setWelcome(3)
-            else -> viewState.setWelcome(4)
-        }
+        viewState.setWelcome(when (hour) {
+            in 5..9 -> 1
+            in 10..16 -> 2
+            in 17..22 -> 3
+            else -> 4
+        })
     }
 }
