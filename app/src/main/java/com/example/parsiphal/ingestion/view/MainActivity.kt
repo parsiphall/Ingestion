@@ -42,6 +42,9 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigati
         val startWeight = MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight)
         val thisWeekWeightOnStart = nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_this_week_weight)
         thisWeekWeightOnStart.text = startWeight
+        val startWater = MessageFormat.format(resources.getString(R.string.general_water_count), prefs.drinkCount)
+        val waterCountOnStart = nav_view.getHeaderView(0).findViewById<TextView>(R.id.nav_water_count)
+        waterCountOnStart.text = startWater
         fragmentPlace(StartFragment(), 0)
     }
 
@@ -55,10 +58,10 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigati
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_new_day -> fragmentPlace(StartFragment(), item.itemId)
-            R.id.nav_general -> fragmentPlace(GeneralFragment(), item.itemId)
-            R.id.nav_stats -> fragmentPlace(StatsFragment(), item.itemId)
-            R.id.nav_options -> fragmentPlace(OptionsFragment(), item.itemId)
+            R.id.nav_new_day -> fragmentPlace(StartFragment(), 0)
+            R.id.nav_general -> fragmentPlace(GeneralFragment(), 1)
+            R.id.nav_stats -> fragmentPlace(StatsFragment(), 2)
+            R.id.nav_options -> fragmentPlace(OptionsFragment(), 3)
         }
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
@@ -74,7 +77,6 @@ class MainActivity : MvpAppCompatActivity(), MainView, NavigationView.OnNavigati
 
     override fun setWeight(weight: String) {
         thisWeekWeight.text = weight
-        Log.d("qwe", "text $weight setted")
     }
 
     override fun setWater(water: String) {
