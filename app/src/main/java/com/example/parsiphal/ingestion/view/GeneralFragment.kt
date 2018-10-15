@@ -10,7 +10,7 @@ import com.example.parsiphal.ingestion.presenter.interfaces.GeneralView
 import kotlinx.android.synthetic.main.fragment_general.*
 
 //TODO Обработка приёма воды.
-//TODO Логика sheduler
+//TODO Логика  расписания sheduler
 //TODO Запись в DB. Транслирование в MainActivity(Room LiveData?)
 
 class GeneralFragment : MvpAppCompatFragment(), GeneralView {
