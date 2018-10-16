@@ -21,6 +21,10 @@ class OptionsFragment : MvpAppCompatFragment(), AdapterView.OnItemSelectedListen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        spinnerSet()
+    }
+
+    private fun spinnerSet() {
         options_startHour_spinner.onItemSelectedListener = this
         val arrayAdapter = ArrayAdapter.createFromResource(activity!!, R.array.new_day_start_list, android.R.layout.simple_spinner_item)
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
