@@ -16,7 +16,8 @@
     <string name="welcome_weight">Введите свой вес:  </string>
     <string name="welcome_monday">понедельник</string>
     <string name="welcome_start_new_day">Новый день</string>
-    <string name="general_next_ingestion">Следующий приём пищи {0}</string>
+    <string name="general_next_ingestion">Следующий приём пищи в %d:%02d</string>
+    <string name="general_next_ingestion_tomorrow">Следующий приём пищи завтра</string>
     <string name="general_at">в</string>
     <string name="general_button_eat">Ем</string>
     <string name="general_button_pass">Пропуск</string>
@@ -32,7 +33,8 @@
     <string name="general_lunch">обед</string>
     <string name="general_snack2">перекус 2</string>
     <string name="general_dinner">ужин</string>
-    <string name="general_now_ingestion">{0}</string>
+    <string name="general_sleep">отход ко сну</string>
+    <string name="general_now_ingestion">Скоро {0}</string>
     <string name="general_bon_appetite">Приятного аппетита!</string>
     <string name="stats_date">Дата: {0}</string>
     <string name="stats_week_weight">Вес:\n{0}кг</string>
@@ -45,7 +47,7 @@
     <string name="service_over_30_min">Через 30 мин.</string>
     <string name="service_time_to">Пора есть</string>
     <string name="service_passed">Пропущен</string>
-    <string name="service_foreground_notify">Следующий приём пищи в</string>
+    <string name="service_foreground_notify">Следующий приём пищи в {0}:{1}</string>
     <string name="title_activity_main2">MainActivity2</string>
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -10,6 +10,10 @@ class Preferences(context: Context) {
     val THIS_WEEK_WEIGHT = "this_week_weight"
     val DRINK_COUNT = "drink_count"
     val START_NEW_DAY_HOUR = "start_new_day_hour"
+    val FEED_NUMBER = "feed_number"
+    val NEXT_FEED_TIME_HOUR = "next_feed_time_hour"
+    val NEXT_FEED_TIME_MINUTE = "next_feed_time_minute"
+    val NEW_DAY = "new_day"
     val NO_DATA = context.getString(R.string.no_data)
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
 
@@ -26,6 +30,22 @@ class Preferences(context: Context) {
         set(value) = prefs.edit().putInt(DRINK_COUNT, value!!).apply()
 
     var startNewDayHour: Int?
-    get() = prefs.getInt(START_NEW_DAY_HOUR, 0)
-    set(value) = prefs.edit().putInt(START_NEW_DAY_HOUR, value!!).apply()
+        get() = prefs.getInt(START_NEW_DAY_HOUR, 8)
+        set(value) = prefs.edit().putInt(START_NEW_DAY_HOUR, value!!).apply()
+
+    var feedNumber: Int?
+        get() = prefs.getInt(FEED_NUMBER, 1)
+        set(value) = prefs.edit().putInt(FEED_NUMBER, value!!).apply()
+
+    var nextFeedTimeHour: Int?
+        get() = prefs.getInt(NEXT_FEED_TIME_HOUR, 0)
+        set(value) = prefs.edit().putInt(NEXT_FEED_TIME_HOUR, value!!).apply()
+
+    var nextFeedTimeMinute: Int?
+        get() = prefs.getInt(NEXT_FEED_TIME_MINUTE, 0)
+        set(value) = prefs.edit().putInt(NEXT_FEED_TIME_MINUTE, value!!).apply()
+
+    var newDay: Boolean?
+        get() = prefs.getBoolean(NEW_DAY, false)
+        set(value) = prefs.edit().putBoolean(NEW_DAY, value!!).apply()
 }

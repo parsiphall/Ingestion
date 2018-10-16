@@ -64,11 +64,13 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     override fun isNewDay(day: String, date: String, hour: Int) {
         if (prefs.lastUseDay == "") {
             newWeek()
+            resetDailyPrefs()
             prefs.lastUseDay = date
         } else {
             if (prefs.lastUseDay != date) {
-                if (hour > prefs.startNewDayHour!!) {
+                if (hour >= prefs.startNewDayHour!!) {
                     prefs.lastUseDay = date
+                    resetDailyPrefs()
                 }
                 if (day != resources.getString(R.string.welcome_monday)) {
                     weightGone()
@@ -98,5 +100,11 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     private fun weightGone() {
         weightTextView.visibility = View.GONE
         welcomeEditText.visibility = View.GONE
+    }
+
+    private fun resetDailyPrefs() {
+        prefs.newDay = true
+        prefs.drinkCount = 0
+        prefs.feedNumber = 1
     }
 }

@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.example.parsiphal.ingestion.R
+import com.example.parsiphal.ingestion.presenter.FiveIngGeneralPresenter
 import com.example.parsiphal.ingestion.presenter.interfaces.GeneralView
 import com.example.parsiphal.ingestion.presenter.interfaces.MainView
 import kotlinx.android.synthetic.main.fragment_general.*
@@ -19,6 +21,8 @@ import java.text.MessageFormat
 
 class GeneralFragment : MvpAppCompatFragment(), GeneralView {
 
+    @InjectPresenter
+    lateinit var fiveIngGeneralPresenter: FiveIngGeneralPresenter
     lateinit var callBackActivity: MainView
 
     override fun onAttach(context: Context?) {
@@ -35,23 +39,29 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
         super.onViewCreated(view, savedInstanceState)
         var drinkCount: Int = prefs.drinkCount!!
         setDrinkCount(drinkCount)
+
         general_drink_button_add.setOnClickListener {
-            YoYo.with(Techniques.Landing)
-                        .duration(300)
-                        .repeat(0)
-                        .playOn(general_drink_button_add)
+            animate(general_drink_button_add)
             drinkCount++
             setDrinkCount(drinkCount)
         }
+
         general_drink_button_remove.setOnClickListener {
-            YoYo.with(Techniques.Landing)
-                    .duration(300)
-                    .repeat(0)
-                    .playOn(general_drink_button_remove)
+            animate(general_drink_button_remove)
             if (drinkCount > 0) {
                 drinkCount--
                 setDrinkCount(drinkCount)
             }
+        }
+
+        general_eat_button.setOnClickListener {
+            animate(general_eat_button)
+            fiveIngGeneralPresenter.calculateNextFeedTimeManual()
+        }
+
+        general_pass_button.setOnClickListener {
+            animate(general_pass_button)
+            fiveIngGeneralPresenter.calculateNextFeedTimePass()
         }
     }
 
@@ -62,15 +72,38 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
         callBackActivity.setWater(count)
     }
 
-    override fun nextIngestion(nextIngestion: String) {
-        general_next_ingestion.text = nextIngestion
+    override fun nextIngestion(nowHour: Int, nowMinute: Int) {
+        if (nowHour == 600) {
+            general_next_ingestion.text = getString(R.string.general_next_ingestion_tomorrow)
+        } else {
+            general_next_ingestion.text = resources.getString(R.string.general_next_ingestion, nowHour, nowMinute)
+        }
     }
 
-    override fun nowIngestion(nowIngestion: String) {
-        general_now_ingestion.text = nowIngestion
+    override fun nowIngestion(feedNumber: Int) {
+        if (feedNumber == 0) {
+            general_now_ingestion.text = getString(R.string.general_bon_appetite)
+        } else {
+            val nowIngestion = when (feedNumber) {
+                1 -> resources.getString(R.string.general_breakfast)
+                2 -> resources.getString(R.string.general_snack1)
+                3 -> resources.getString(R.string.general_lunch)
+                4 -> resources.getString(R.string.general_snack2)
+                5 -> resources.getString(R.string.general_dinner)
+                else -> resources.getString(R.string.general_sleep)
+            }
+            general_now_ingestion.text = MessageFormat.format(resources.getString(R.string.general_now_ingestion), nowIngestion)
+        }
     }
 
     override fun setWater(water: String) {
         general_drink_count_textView.text = water
+    }
+
+    fun animate(view: View) {
+        YoYo.with(Techniques.Landing)
+                .duration(300)
+                .repeat(0)
+                .playOn(view)
     }
 }
