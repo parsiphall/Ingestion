@@ -62,28 +62,37 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     }
 
     override fun isNewDay(day: String, date: String, hour: Int) {
-        if (prefs.lastUseDay != date) {
-            if (hour > prefs.startNewDayHour!!) {
-                prefs.lastUseDay = date
-            }
-            if (day != resources.getString(R.string.welcome_monday)) {
-                weightGone()
-            } else {
-                startButton.isEnabled = false
-                welcomeEditText.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {}
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        startButton.isEnabled = true
-                        prefs.thisWeekWeight = welcomeEditText.text.toString()
-                    }
-                })
-            }
+        if (prefs.lastUseDay == "") {
+            newWeek()
+            prefs.lastUseDay = date
         } else {
-            weightGone()
+            if (prefs.lastUseDay != date) {
+                if (hour > prefs.startNewDayHour!!) {
+                    prefs.lastUseDay = date
+                }
+                if (day != resources.getString(R.string.welcome_monday)) {
+                    weightGone()
+                } else {
+                    newWeek()
+                }
+            } else {
+                weightGone()
+            }
         }
+    }
+
+    private fun newWeek() {
+        startButton.isEnabled = false
+        welcomeEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                startButton.isEnabled = true
+                prefs.thisWeekWeight = welcomeEditText.text.toString()
+            }
+        })
     }
 
     private fun weightGone() {
