@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_start.weight_textView as weightTe
 import kotlinx.android.synthetic.main.fragment_start.welcome_editText as welcomeEditText
 
 //TODO Обработка кнопки "Начать". Запись в DB. Транслирование в MainActivity(Room LiveData?)
-//TODO Проверка на новый день? Изменение проверки недели от нового дня.
 
 class StartFragment : MvpAppCompatFragment(), StartView {
 
@@ -62,9 +61,11 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         })
     }
 
-    override fun isNewDay(day: String, date: String) {
+    override fun isNewDay(day: String, date: String, hour: Int) {
         if (prefs.lastUseDay != date) {
-            prefs.lastUseDay = date
+            if (hour > prefs.startNewDayHour!!) {
+                prefs.lastUseDay = date
+            }
             if (day != resources.getString(R.string.welcome_monday)) {
                 weightGone()
             } else {

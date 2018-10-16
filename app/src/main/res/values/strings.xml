@@ -58,4 +58,16 @@
     <string name="in_progress_options">Настройки в разработке</string>
     <string name="in_progress_stats">Статистика в разработке</string>
     <string name="no_data">нет данных</string>
+    <string name="options_new_day_start">Начало нового дня</string>
+    <string-array name="new_day_start_list">
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
 </resources>

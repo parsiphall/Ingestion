@@ -9,6 +9,7 @@ class Preferences(context: Context) {
     val LAST_USE_DATE = "last_use_day"
     val THIS_WEEK_WEIGHT = "this_week_weight"
     val DRINK_COUNT = "drink_count"
+    val START_NEW_DAY_HOUR = "start_new_day_hour"
     val NO_DATA = context.getString(R.string.no_data)
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
 
@@ -23,4 +24,8 @@ class Preferences(context: Context) {
     var drinkCount: Int?
         get() = prefs.getInt(DRINK_COUNT, 0)
         set(value) = prefs.edit().putInt(DRINK_COUNT, value!!).apply()
+
+    var startNewDayHour: Int?
+    get() = prefs.getInt(START_NEW_DAY_HOUR, 0)
+    set(value) = prefs.edit().putInt(START_NEW_DAY_HOUR, value!!).apply()
 }
