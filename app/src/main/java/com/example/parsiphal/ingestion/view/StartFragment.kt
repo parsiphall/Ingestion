@@ -22,7 +22,6 @@ import kotlinx.android.synthetic.main.fragment_start.weight_textView as weightTe
 import kotlinx.android.synthetic.main.fragment_start.welcome_editText as welcomeEditText
 
 //TODO Обработка кнопки "Начать". Запись в DB. Транслирование в MainActivity(Room LiveData?)
-//TODO Проверка на новый день? Изменение проверки недели от нового дня.
 
 class StartFragment : MvpAppCompatFragment(), StartView {
 
@@ -62,31 +61,50 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         })
     }
 
-    override fun isNewDay(day: String, date: String) {
-        if (prefs.lastUseDay != date) {
+    override fun isNewDay(day: String, date: String, hour: Int) {
+        if (prefs.lastUseDay == "") {
+            newWeek()
+            resetDailyPrefs()
             prefs.lastUseDay = date
-            if (day != resources.getString(R.string.welcome_monday)) {
-                weightGone()
-            } else {
-                startButton.isEnabled = false
-                welcomeEditText.addTextChangedListener(object : TextWatcher {
-                    override fun afterTextChanged(s: Editable?) {}
-
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                        startButton.isEnabled = true
-                        prefs.thisWeekWeight = welcomeEditText.text.toString()
-                    }
-                })
-            }
         } else {
-            weightGone()
+            if (prefs.lastUseDay != date) {
+                if (hour >= prefs.startNewDayHour!!) {
+                    prefs.lastUseDay = date
+                    resetDailyPrefs()
+                }
+                if (day != resources.getString(R.string.welcome_monday)) {
+                    weightGone()
+                } else {
+                    newWeek()
+                }
+            } else {
+                weightGone()
+            }
         }
+    }
+
+    private fun newWeek() {
+        startButton.isEnabled = false
+        welcomeEditText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {}
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                startButton.isEnabled = true
+                prefs.thisWeekWeight = welcomeEditText.text.toString()
+            }
+        })
     }
 
     private fun weightGone() {
         weightTextView.visibility = View.GONE
         welcomeEditText.visibility = View.GONE
+    }
+
+    private fun resetDailyPrefs() {
+        prefs.newDay = 0
+        prefs.drinkCount = 0
+        prefs.feedNumber = 0
     }
 }
