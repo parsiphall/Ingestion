@@ -11,10 +11,14 @@ import java.util.*
 @InjectViewState
 class FiveIngGeneralPresenter : BasePresenter<FiveIngModel, GeneralView>() {
 
+    private var notifyTime: Long = 0
+//    private var notifyTimeTest: Long = 10000
+
     override fun attachView(view: GeneralView?) {
         super.attachView(view)
 
-        if (prefs.newDay!!) {
+        if (prefs.newDay!! == 0) {
+            prefs.newDay = 1
             calculateNextFeedTimeFirst()
         } else {
             calculateNextFeedTimeAuto()
@@ -32,39 +36,50 @@ class FiveIngGeneralPresenter : BasePresenter<FiveIngModel, GeneralView>() {
             prefs.nextFeedTimeHour = hour
             prefs.nextFeedTimeMinute = minute + 30
         }
+        notifyTime = 1800000L
+        prefs.notifyFlag = 2
+        viewState.notification(notifyTime)
         setNextIngestion()
         setNowIngestion()
     }
 
     fun calculateNextFeedTimeManual() {
         Log.d("qwe", "calculateNextFeedTimeManual")
-        val hour = getHour()
+        var hour = getHour()
         val minute = getMinute()
         when (prefs.feedNumber) {
-            1, 3 -> {
+            0, 2 -> {
                 if (minute >= 30) {
+                    if (hour >= 20) hour -= 24
                     prefs.nextFeedTimeHour = hour + 4
                     prefs.nextFeedTimeMinute = minute - 30
                 } else {
+                    if (hour >= 21) hour -= 24
                     prefs.nextFeedTimeHour = hour + 3
                     prefs.nextFeedTimeMinute = minute + 30
                 }
+                notifyTime = 10800000L
             }
-            2, 4 -> {
+            1, 3 -> {
                 prefs.nextFeedTimeHour = hour + 3
+                notifyTime = 9000000L
             }
-            else -> prefs.nextFeedTimeHour = 600
+            else -> {
+                prefs.nextFeedTimeHour = 600
+                notifyTime = 0L
+            }
         }
         prefs.feedNumber = prefs.feedNumber?.plus(1)
-        setNextIngestion()
         viewState.nowIngestion(0)
+        viewState.notification(notifyTime)
     }
 
     private fun calculateNextFeedTimeAuto() {
         Log.d("qwe", "calculateNextFeedTimeAuto")
-        val hour = getHour()
+        var hour = getHour()
+        if (hour >= 22) hour -= 24
         val minute = getMinute()
-        if (hour > prefs.nextFeedTimeHour!!) {
+        if (hour > prefs.nextFeedTimeHour!! || (hour == prefs.nextFeedTimeHour!! && minute > prefs.nextFeedTimeMinute!!)) {
             prefs.nextFeedTimeHour = hour + 2
             prefs.nextFeedTimeMinute = minute
             prefs.feedNumber = prefs.feedNumber?.plus(1)
@@ -75,20 +90,21 @@ class FiveIngGeneralPresenter : BasePresenter<FiveIngModel, GeneralView>() {
 
     fun calculateNextFeedTimePass() {
         Log.d("qwe", "calculateNextFeedTimePass")
-        val hour = getHour()
+        var hour = getHour()
+        if (hour >= 22) hour -= 24
         val minute = getMinute()
+        notifyTime = 5400000L
         prefs.nextFeedTimeHour = hour + 2
         prefs.nextFeedTimeMinute = minute
         prefs.feedNumber = prefs.feedNumber?.plus(1)
-        setNextIngestion()
-        setNowIngestion()
+        viewState.notification(notifyTime)
     }
 
-    private fun setNextIngestion() {
+    fun setNextIngestion() {
         viewState.nextIngestion(prefs.nextFeedTimeHour!!, prefs.nextFeedTimeMinute!!)
     }
 
-    private fun setNowIngestion() {
+    fun setNowIngestion() {
         viewState.nowIngestion(prefs.feedNumber!!)
     }
 

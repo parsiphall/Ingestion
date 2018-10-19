@@ -14,6 +14,7 @@ class Preferences(context: Context) {
     val NEXT_FEED_TIME_HOUR = "next_feed_time_hour"
     val NEXT_FEED_TIME_MINUTE = "next_feed_time_minute"
     val NEW_DAY = "new_day"
+    val NOTIFY_FLAG = "notify_flag"
     val NO_DATA = context.getString(R.string.no_data)
     val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
 
@@ -34,7 +35,7 @@ class Preferences(context: Context) {
         set(value) = prefs.edit().putInt(START_NEW_DAY_HOUR, value!!).apply()
 
     var feedNumber: Int?
-        get() = prefs.getInt(FEED_NUMBER, 1)
+        get() = prefs.getInt(FEED_NUMBER, 0)
         set(value) = prefs.edit().putInt(FEED_NUMBER, value!!).apply()
 
     var nextFeedTimeHour: Int?
@@ -45,7 +46,11 @@ class Preferences(context: Context) {
         get() = prefs.getInt(NEXT_FEED_TIME_MINUTE, 0)
         set(value) = prefs.edit().putInt(NEXT_FEED_TIME_MINUTE, value!!).apply()
 
-    var newDay: Boolean?
-        get() = prefs.getBoolean(NEW_DAY, false)
-        set(value) = prefs.edit().putBoolean(NEW_DAY, value!!).apply()
+    var newDay: Int?
+        get() = prefs.getInt(NEW_DAY, 0)
+        set(value) = prefs.edit().putInt(NEW_DAY, value!!).apply()
+
+    var notifyFlag: Int?
+        get() = prefs.getInt(NOTIFY_FLAG, 0)
+        set(value) = prefs.edit().putInt(NOTIFY_FLAG, value!!).apply()
 }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Ingestion</string>
+    <string name="app_name">Моё питание</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
@@ -44,13 +44,6 @@
     <string name="stats_snack2">Перекус 2 в {0}</string>
     <string name="stats_dinner">Ужин в {0}</string>
     <string name="stats_water">Выпито воды: {0}ст.</string>
-    <string name="service_over_30_min">Через 30 мин.</string>
-    <string name="service_time_to">Пора есть</string>
-    <string name="service_passed">Пропущен</string>
-    <string name="service_foreground_notify">Следующий приём пищи в {0}:{1}</string>
-    <string name="title_activity_main2">MainActivity2</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="in_progress">В разработке</string>
     <string name="options">Настройки</string>
@@ -61,6 +54,9 @@
     <string name="in_progress_stats">Статистика в разработке</string>
     <string name="no_data">нет данных</string>
     <string name="options_new_day_start">Начало нового дня</string>
+    <string name="notify_now_ing">Пора есть!</string>
+    <string name="notify_passed_ing">Пропущен приём пищи</string>
+    <string name="notify_soon_ing">Через 30 мин. приём пищи</string>
     <string-array name="new_day_start_list">
         <item>00:00</item>
         <item>01:00</item>

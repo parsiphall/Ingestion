@@ -103,8 +103,8 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     }
 
     private fun resetDailyPrefs() {
-        prefs.newDay = true
+        prefs.newDay = 0
         prefs.drinkCount = 0
-        prefs.feedNumber = 1
+        prefs.feedNumber = 0
     }
 }
