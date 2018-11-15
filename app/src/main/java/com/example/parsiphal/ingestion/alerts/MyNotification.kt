@@ -53,7 +53,7 @@ class MyNotification : BroadcastReceiver() {
         nb.setSmallIcon(R.drawable.ic_launcher_round)
                 .setContentIntent(pIntent)
                 .setSound(alarmSound)
-                .setVibrate(longArrayOf(0, 400, 300, 1000))
+                .setVibrate(longArrayOf(0, 200, 200, 200, 200, 200, 200, 200, 200, 1000))
                 .setAutoCancel(true)
         nm.notify(0, nb.build())
     }

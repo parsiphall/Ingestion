@@ -71,11 +71,11 @@ class StartFragment : MvpAppCompatFragment(), StartView {
                 if (hour >= prefs.startNewDayHour!!) {
                     prefs.lastUseDay = date
                     resetDailyPrefs()
-                }
-                if (day != resources.getString(R.string.welcome_monday)) {
-                    weightGone()
-                } else {
-                    newWeek()
+                    if (day != resources.getString(R.string.welcome_monday)) {
+                        weightGone()
+                    } else {
+                        newWeek()
+                    }
                 }
             } else {
                 weightGone()

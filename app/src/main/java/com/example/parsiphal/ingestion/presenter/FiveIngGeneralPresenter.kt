@@ -29,15 +29,9 @@ class FiveIngGeneralPresenter : BasePresenter<FiveIngModel, GeneralView>() {
         Log.d("qwe", "calculateNextFeedTimeFirst")
         val hour = getHour()
         val minute = getMinute()
-        if (minute >= 30) {
-            prefs.nextFeedTimeHour = hour + 1
-            prefs.nextFeedTimeMinute = minute - 30
-        } else {
-            prefs.nextFeedTimeHour = hour
-            prefs.nextFeedTimeMinute = minute + 30
-        }
+        prefs.nextFeedTimeHour = hour + 1
+        prefs.nextFeedTimeMinute = minute
         notifyTime = 1800000L
-        prefs.notifyFlag = 2
         viewState.notification(notifyTime)
         setNextIngestion()
         setNowIngestion()
@@ -94,7 +88,7 @@ class FiveIngGeneralPresenter : BasePresenter<FiveIngModel, GeneralView>() {
         if (hour >= 22) hour -= 24
         val minute = getMinute()
         notifyTime = 5400000L
-        prefs.nextFeedTimeHour = hour + 2
+        prefs.nextFeedTimeHour = prefs.nextFeedTimeHour?.plus(2)
         prefs.nextFeedTimeMinute = minute
         prefs.feedNumber = prefs.feedNumber?.plus(1)
         viewState.notification(notifyTime)

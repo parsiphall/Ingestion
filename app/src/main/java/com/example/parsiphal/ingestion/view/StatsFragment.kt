@@ -29,8 +29,6 @@ class StatsFragment : MvpAppCompatFragment() {
     }
 
 
-
-
     private fun getFiveIngModelList(): List<FiveIngModel> {
         items.add(FiveIngModel(1,
                 "08/10/2018",
