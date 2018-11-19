@@ -79,6 +79,7 @@ class StartFragment : MvpAppCompatFragment(), StartView {
                 }
             } else {
                 weightGone()
+                startButton.text = getString(R.string.welcome_button_start_con)
             }
         }
     }

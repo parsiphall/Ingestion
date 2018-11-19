@@ -13,6 +13,7 @@ const val NEXT_FEED_TIME_HOUR = "next_feed_time_hour"
 const val NEXT_FEED_TIME_MINUTE = "next_feed_time_minute"
 const val NEW_DAY = "new_day"
 const val NOTIFY_FLAG = "notify_flag"
+const val NOTIFY_TIME_MILLS = "notify_time_mills"
 
 class Preferences(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, Context.MODE_PRIVATE)
@@ -52,4 +53,8 @@ class Preferences(context: Context) {
     var notifyFlag: Int?
         get() = prefs.getInt(NOTIFY_FLAG, 1)
         set(value) = prefs.edit().putInt(NOTIFY_FLAG, value!!).apply()
+
+    var notifyTimeMills: Long?
+        get() = prefs.getLong(NOTIFY_TIME_MILLS, 0L)
+        set(value) = prefs.edit().putLong(NOTIFY_TIME_MILLS, value!!).apply()
 }

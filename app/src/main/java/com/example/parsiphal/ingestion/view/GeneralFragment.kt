@@ -19,6 +19,7 @@ import com.example.parsiphal.ingestion.presenter.interfaces.GeneralView
 import com.example.parsiphal.ingestion.presenter.interfaces.MainView
 import kotlinx.android.synthetic.main.fragment_general.*
 import java.text.MessageFormat
+import java.util.*
 
 //TODO Логика расписания при помощи sheduler
 //TODO Запись в DB. Транслирование в MainActivity(Room LiveData?)
@@ -76,19 +77,32 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
         }
     }
 
-    override fun notification(notifyTime: Long) {
-        val context = activity!!.applicationContext
-        val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        am.set(
-                AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + notifyTime,
-                PendingIntent.getBroadcast(
-                        context,
-                        0,
-                        Intent(context, MyNotification::class.java),
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                )
-        )
+    override fun notification(plusDay: Boolean) {
+        if (prefs.feedNumber!! < 5) {
+            val notifyTime = 1800000L
+            val cal = Calendar.getInstance()
+            if (plusDay) cal.add(Calendar.DAY_OF_YEAR, 1)
+            cal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
+            cal.set(Calendar.MONTH, cal.get(Calendar.MONTH))
+            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH))
+            cal.set(Calendar.HOUR_OF_DAY, prefs.nextFeedTimeHour!!)
+            cal.set(Calendar.MINUTE, prefs.nextFeedTimeMinute!!)
+            cal.set(Calendar.SECOND, 0)
+            cal.set(Calendar.MILLISECOND, 0)
+            prefs.notifyTimeMills = cal.timeInMillis
+            val context = activity!!.applicationContext
+            val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
+            am.set(
+                    AlarmManager.RTC_WAKEUP,
+                    cal.timeInMillis - notifyTime,
+                    PendingIntent.getBroadcast(
+                            context,
+                            0,
+                            Intent(context, MyNotification::class.java),
+                            PendingIntent.FLAG_UPDATE_CURRENT
+                    )
+            )
+        }
     }
 
     private fun setDrinkCount(drinkCount: Int) {

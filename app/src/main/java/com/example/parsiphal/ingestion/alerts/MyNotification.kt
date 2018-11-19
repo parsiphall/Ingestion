@@ -23,34 +23,28 @@ class MyNotification : BroadcastReceiver() {
         val pIntent = PendingIntent.getActivity(context, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT)
         val nb = NotificationCompat.Builder(context)
         val notifyTime = 1800000L
-        val notifyTimeToNext = 5400000L
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    //val notifyTimeTest = 5000L
-    ////////////////////////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////////////////////////////////////////////////////////////////
+        //val notifyTimeTest = 5000L
+        ////////////////////////////////////////////////////////////////////////////////////////////////
         when (prefs.notifyFlag) {
             1 -> {
                 nb.setContentTitle(context.getString(R.string.notify_soon_ing))
-                        .setContentText(chooseIng(context))
                 prefs.notifyFlag = prefs.notifyFlag?.plus(1)
-                notification(context, notifyTime)
+                notification(context, prefs.notifyTimeMills!!)
             }
             2 -> {
                 nb.setContentTitle(context.getString(R.string.notify_now_ing))
-                        .setContentText(chooseIng(context))
                 prefs.notifyFlag = prefs.notifyFlag?.plus(1)
-                notification(context, notifyTime)
+                notification(context, prefs.notifyTimeMills!! + notifyTime)
             }
             3 -> {
                 nb.setContentTitle(context.getString(R.string.notify_passed_ing))
-                        .setContentText(chooseIng(context))
                 prefs.notifyFlag = 1
                 FiveIngGeneralPresenter().calculateNextFeedTimePass()
-                if (prefs.feedNumber!! < 5) {
-                    notification(context, notifyTimeToNext)
-                }
             }
         }
-        nb.setSmallIcon(R.drawable.ic_launcher_round)
+        nb.setContentText(chooseIng(context))
+                .setSmallIcon(R.drawable.ic_launcher_round)
                 .setContentIntent(pIntent)
                 .setSound(alarmSound)
                 .setVibrate(longArrayOf(0, 200, 200, 200, 200, 200, 200, 200, 200, 1000))

@@ -57,6 +57,7 @@
     <string name="notify_now_ing">Пора есть!</string>
     <string name="notify_passed_ing">Пропущен приём пищи</string>
     <string name="notify_soon_ing">Через 30 мин. приём пищи</string>
+    <string name="welcome_button_start_con">Продолжить</string>
     <string-array name="new_day_start_list">
         <item>00:00</item>
         <item>01:00</item>
