@@ -1,7 +1,9 @@
 package com.example.parsiphal.ingestion.date
 
-import android.arch.persistence.room.Entity
+import android.arch.persistence.room.*
+import com.example.parsiphal.ingestion.model.FiveIngModel
 
-@Entity
-class ReadoutTable {
+@Database(entities = [FiveIngModel::class], version = 1)
+abstract class DataBase: RoomDatabase() {
+    abstract fun getDao(): Dao
 }
