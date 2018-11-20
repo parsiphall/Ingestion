@@ -12,6 +12,12 @@ interface Dao {
     @Query("SELECT * FROM FiveIngModel")
     fun getIngestions(): List<FiveIngModel>
 
+    @Query("SELECT * FROM FiveIngModel WHERE date=:Date")
+    fun getCurrentIngestion(Date: String): FiveIngModel
+
+//    @Query("UPDATE FiveIngModel WHERE date=:prefs.lastUseDate")
+//    fun updateCurIng(fiveIngModel: FiveIngModel)
+
     @Update
     fun updateIngestion(fiveIngModel: FiveIngModel)
 

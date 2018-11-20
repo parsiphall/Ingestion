@@ -10,9 +10,6 @@ import com.example.parsiphal.ingestion.R
 import com.example.parsiphal.ingestion.model.FiveIngModel
 import kotlinx.android.synthetic.main.fragment_stats.view.*
 
-//TODO Отображение данных из DB
-//TODO Чтение из DB на основании типа питания
-
 class StatsFragment : MvpAppCompatFragment() {
 
     private var items: List<FiveIngModel> = ArrayList()
@@ -22,6 +19,7 @@ class StatsFragment : MvpAppCompatFragment() {
         val root = inflater.inflate(R.layout.fragment_stats, container, false)
 
         getFiveIngModelList()
+        items.reversed()
 
         root.stats_recycler_view.layoutManager = LinearLayoutManager(context)
         root.stats_recycler_view.adapter = StatsFiveIngAdapter(items, context)

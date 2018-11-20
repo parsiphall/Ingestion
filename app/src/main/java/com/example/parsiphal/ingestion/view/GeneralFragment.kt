@@ -21,9 +21,6 @@ import kotlinx.android.synthetic.main.fragment_general.*
 import java.text.MessageFormat
 import java.util.*
 
-//TODO Логика расписания при помощи sheduler
-//TODO Запись в DB. Транслирование в MainActivity(Room LiveData?)
-
 class GeneralFragment : MvpAppCompatFragment(), GeneralView {
 
 
@@ -81,10 +78,10 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
         if (prefs.feedNumber!! < 5) {
             val notifyTime = 1800000L
             val cal = Calendar.getInstance()
-            if (plusDay) cal.add(Calendar.DAY_OF_YEAR, 1)
             cal.set(Calendar.YEAR, cal.get(Calendar.YEAR))
             cal.set(Calendar.MONTH, cal.get(Calendar.MONTH))
             cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH))
+            if (plusDay) cal.add(Calendar.DAY_OF_YEAR, 1)
             cal.set(Calendar.HOUR_OF_DAY, prefs.nextFeedTimeHour!!)
             cal.set(Calendar.MINUTE, prefs.nextFeedTimeMinute!!)
             cal.set(Calendar.SECOND, 0)
@@ -109,6 +106,9 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
         val count = MessageFormat.format(resources.getString(R.string.general_water_count), drinkCount)
         general_drink_count_textView.text = count
         prefs.drinkCount = drinkCount
+        val ingModel = DB.getDao().getCurrentIngestion(prefs.lastUseDay!!)
+        ingModel.water = drinkCount.toString()
+        DB.getDao().updateIngestion(ingModel)
         callBackActivity.setWater(count)
     }
 
@@ -143,4 +143,19 @@ class GeneralFragment : MvpAppCompatFragment(), GeneralView {
                 .repeat(0)
                 .playOn(view)
     }
+
+    override fun storeToBase(hour: Int, minute: Int, feedNumber: Int, result: Boolean) {
+        val ingModel = DB.getDao().getCurrentIngestion(prefs.lastUseDay!!)
+        when (feedNumber) {
+            0 -> ingModel.breakfast = storeToBaseResult(hour, minute, result)
+            1 -> ingModel.snack1 = storeToBaseResult(hour, minute, result)
+            2 -> ingModel.lunch = storeToBaseResult(hour, minute, result)
+            3 -> ingModel.snack2 = storeToBaseResult(hour, minute, result)
+            4 -> ingModel.dinner = storeToBaseResult(hour, minute, result)
+        }
+        DB.getDao().updateIngestion(ingModel)
+    }
+
+    private fun storeToBaseResult(hour: Int, minute: Int, result: Boolean): String =
+            if (result) "$hour:$minute" else getString(R.string.passed)
 }

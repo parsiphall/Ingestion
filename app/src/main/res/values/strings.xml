@@ -38,11 +38,11 @@
     <string name="general_bon_appetite">Приятного аппетита!</string>
     <string name="stats_date">Дата: {0}</string>
     <string name="stats_week_weight">Вес:\n{0}кг</string>
-    <string name="stats_breakfast">Завтрак в {0}</string>
-    <string name="stats_snack1">Перекус 1 в {0}</string>
-    <string name="stats_lunch">Обед в {0}</string>
-    <string name="stats_snack2">Перекус 2 в {0}</string>
-    <string name="stats_dinner">Ужин в {0}</string>
+    <string name="stats_breakfast">Завтрак: {0}</string>
+    <string name="stats_snack1">Перекус 1: {0}</string>
+    <string name="stats_lunch">Обед: {0}</string>
+    <string name="stats_snack2">Перекус 2: {0}</string>
+    <string name="stats_dinner">Ужин: {0}</string>
     <string name="stats_water">Выпито воды: {0}ст.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="in_progress">В разработке</string>
@@ -58,6 +58,7 @@
     <string name="notify_passed_ing">Пропущен приём пищи</string>
     <string name="notify_soon_ing">Через 30 мин. приём пищи</string>
     <string name="welcome_button_start_con">Продолжить</string>
+    <string name="passed">пропущен</string>
     <string-array name="new_day_start_list">
         <item>00:00</item>
         <item>01:00</item>

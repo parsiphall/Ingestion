@@ -14,7 +14,7 @@ class StartPresenter : MvpPresenter<StartView>() {
 
         val nowHour = SimpleDateFormat("H")
         val day = SimpleDateFormat("EEEE").format(Date())
-        val date = SimpleDateFormat("yyyy.MM.dd").format(Date())
+        val date = SimpleDateFormat("dd/MM/yyyy").format(Date())
 
         setWelcomeText(nowHour)
         isNewDay(day, date, nowHour)

@@ -29,13 +29,15 @@ class MyNotification : BroadcastReceiver() {
         when (prefs.notifyFlag) {
             1 -> {
                 nb.setContentTitle(context.getString(R.string.notify_soon_ing))
+                        .setContentText(chooseIng(context))
                 prefs.notifyFlag = prefs.notifyFlag?.plus(1)
-                notification(context, prefs.notifyTimeMills!!)
+                notification(context, 0L)
             }
             2 -> {
                 nb.setContentTitle(context.getString(R.string.notify_now_ing))
+                        .setContentText(chooseIng(context))
                 prefs.notifyFlag = prefs.notifyFlag?.plus(1)
-                notification(context, prefs.notifyTimeMills!! + notifyTime)
+                notification(context, notifyTime)
             }
             3 -> {
                 nb.setContentTitle(context.getString(R.string.notify_passed_ing))
@@ -43,8 +45,7 @@ class MyNotification : BroadcastReceiver() {
                 FiveIngGeneralPresenter().calculateNextFeedTimePass()
             }
         }
-        nb.setContentText(chooseIng(context))
-                .setSmallIcon(R.drawable.ic_launcher_round)
+        nb.setSmallIcon(R.drawable.ic_launcher_round)
                 .setContentIntent(pIntent)
                 .setSound(alarmSound)
                 .setVibrate(longArrayOf(0, 200, 200, 200, 200, 200, 200, 200, 200, 1000))
@@ -56,7 +57,7 @@ class MyNotification : BroadcastReceiver() {
         val am = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         am.set(
                 AlarmManager.RTC_WAKEUP,
-                System.currentTimeMillis() + notifyTime,
+                prefs.notifyTimeMills!! + notifyTime,
                 PendingIntent.getBroadcast(
                         context,
                         0,

@@ -12,6 +12,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
 import com.example.parsiphal.ingestion.R
+import com.example.parsiphal.ingestion.model.FiveIngModel
 import com.example.parsiphal.ingestion.presenter.StartPresenter
 import com.example.parsiphal.ingestion.presenter.interfaces.MainView
 import com.example.parsiphal.ingestion.presenter.interfaces.StartView
@@ -47,6 +48,9 @@ class StartFragment : MvpAppCompatFragment(), StartView {
                     .repeat(1)
                     .playOn(startButton)
             callBackActivity.setWeight(MessageFormat.format(resources.getString(R.string.general_this_week_weight), prefs.thisWeekWeight))
+            val ingModel = DB.getDao().getCurrentIngestion(prefs.lastUseDay!!)
+            ingModel.weight = prefs.thisWeekWeight!!
+            DB.getDao().updateIngestion(ingModel)
             callBackActivity.fragmentPlace(GeneralFragment(), 1)
         }
     }
@@ -64,13 +68,13 @@ class StartFragment : MvpAppCompatFragment(), StartView {
     override fun isNewDay(day: String, date: String, hour: Int) {
         if (prefs.lastUseDay == "") {
             newWeek()
-            resetDailyPrefs()
+            resetDailyPrefs(date)
             prefs.lastUseDay = date
         } else {
             if (prefs.lastUseDay != date) {
                 if (hour >= prefs.startNewDayHour!!) {
                     prefs.lastUseDay = date
-                    resetDailyPrefs()
+                    resetDailyPrefs(date)
                     if (day != resources.getString(R.string.welcome_monday)) {
                         weightGone()
                     } else {
@@ -103,9 +107,12 @@ class StartFragment : MvpAppCompatFragment(), StartView {
         welcomeEditText.visibility = View.GONE
     }
 
-    private fun resetDailyPrefs() {
+    private fun resetDailyPrefs(date: String) {
         prefs.newDay = 0
         prefs.drinkCount = 0
         prefs.feedNumber = 0
+        val newIngestion = FiveIngModel()
+        newIngestion.date = date
+        DB.getDao().addIngestion(newIngestion)
     }
 }

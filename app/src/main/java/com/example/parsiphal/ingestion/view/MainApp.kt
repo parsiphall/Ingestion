@@ -9,23 +9,27 @@ val prefs: Preferences by lazy {
     MainApp.prefs!!
 }
 
+val DB: DataBase by lazy {
+    MainApp.mDataBase!!
+}
+
 class MainApp : Application() {
 
     companion object {
         var prefs: Preferences? = null
+        var mDataBase: DataBase? = null
     }
-
-    lateinit var mDataBase: DataBase
 
     override fun onCreate() {
         super.onCreate()
         prefs = Preferences(applicationContext)
         mDataBase = Room
                 .databaseBuilder(applicationContext, DataBase::class.java, "ing_DB")
+                .allowMainThreadQueries()
                 .build()
     }
 
     fun getDataBase(): DataBase {
-        return mDataBase
+        return mDataBase!!
     }
 }

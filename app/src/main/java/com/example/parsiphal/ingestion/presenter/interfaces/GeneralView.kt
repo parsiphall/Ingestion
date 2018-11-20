@@ -6,4 +6,5 @@ interface GeneralView : BaseView {
     fun nowIngestion(feedNumber: Int)
     fun setWater(water: String)
     fun notification(plusDay: Boolean)
+    fun storeToBase(hour: Int, minute: Int, feedNumber: Int, result: Boolean)
 }
